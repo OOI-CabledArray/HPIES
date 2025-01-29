@@ -7,4 +7,5 @@ John Dunlap, the instrument engineer and subject matter expert (SME) at UW, has 
 Cronjob examples running to process data automatically:
 
 45 * * * * /data/rsn/hpies.run >> /data/rsn/hpies.log 2>&1
+
 17 22 * * * /data/magobs/getmagobs.py new tuc hon frn >> /data/magobs/getmagobs.log 2>&1
