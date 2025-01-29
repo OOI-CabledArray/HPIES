@@ -1,0 +1,48 @@
+#!/bin/bash
+# hprplt.run
+
+YRs="2017 2016 2015 2014"
+MONs="01 02 03 04 05 06 07 08 09 10 11 12"
+DAYs="01 02 03 04 05 06 07 08 09 10 \
+      11 12 13 14 15 16 17 18 19 21 \
+      21 22 23 24 25 26 27 28 29 30 \
+      31 \
+"
+
+IDIR=/data/rsn/hpies
+
+for YR in $YRs
+do
+  for MON in $MONs
+  do
+    for DAY in $DAYs
+    do
+      YMD=$YR$MON$DAY
+      for NAM in AB SB
+      do
+        echo $YMD $NAM
+        if [ $NAM == "AB" ]; then
+          F=$IDIR/HPIESA301_10.31.5.5_2101_"$YMD"T????_UTC.dat
+        fi
+        if [ $NAM == "SB" ]; then
+          F=$IDIR/HPIESA101_10.33.5.5_2101_"$YMD"T????_UTC.dat
+        fi
+        echo $F
+#         --plot_e12_demod \
+#         --plot_cal_demod \
+#         --plot_hef_demod \
+#         --plot_compass \
+#         --plot_pies \
+#         --plot_clk_diffs \
+        ./hprpro.py -s 15 -w 7 -y 15 \
+          --plot_mot_cur_dur \
+          --rsn \
+          --matdir /data/rsn/mat \
+          --pltdir /data/rsn/plots \
+          --onameroot HPIES-$YMD-$NAM \
+          $F
+      done
+    done
+  done
+done
+

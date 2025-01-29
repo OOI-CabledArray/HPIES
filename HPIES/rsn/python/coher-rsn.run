@@ -1,0 +1,8 @@
+#!/bin/bash
+# coher-rsn.run
+
+FILES="/data/rsn/mat/hprpro/HPIES-201408??-1AB-hprpro.mat /data/rsn/mat/hprpro/HPIES-2014090[1234567]-1AB-hprpro.mat"
+./coher.py --tfft 8 --rsn --coh --ts --cat $FILES
+
+FILES=/data/rsn/mat/hprpro/HPIES-20140[89]??-2SB-hprpro.mat
+./coher.py --tfft 8 --rsn --coh --ts --cat $FILES

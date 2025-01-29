@@ -1,0 +1,7 @@
+#!/bin/sh
+# aux-SB-2014.run
+
+for i in `cat list-SB-2014`
+do
+./hprpro.py --rsn --show_aux /data/rsn/hpies/$i >> aux-SB-2014.out
+done

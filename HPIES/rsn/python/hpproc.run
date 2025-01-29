@@ -1,0 +1,23 @@
+#!/bin/bash
+# hpproc.run -- run hpproc.py and rsync to ohm every $SECS
+
+SECS=900
+
+while /bin/true
+do
+  echo "`date +%F\ %T`  hpproc.run"
+
+  cat ./hpr/hpr002/hpr002_201408??UTC.txt > hprtst.tmp
+
+  ./hpproc.py -d -k -a -s 15 -w 7 -y 15 \
+      --pltnambase hef007-ws33-ws35 \
+      --plot_mot_cur_dur \
+      --e1ws ws33 --e2ws ws35 \
+      hprtst.tmp
+# rsync -a notes-rsn001.txt pdf hprtst.out ohm:hpies/rsn/python/kelvin3
+  rsync -a pdf/hef-avg/hef007* ohm:hpies/rsn/python/kelvin3/pdf/hef-avg
+  rsync -a notes-tgt.txt ohm:hpies/rsn/python/kelvin3
+
+  echo "`date +%F\ %T`  waiting $SECS s"
+  sleep $SECS
+done

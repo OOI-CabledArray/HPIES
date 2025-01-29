@@ -1,0 +1,21 @@
+#!/bin/bash
+# hpproc.run -- run hpproc.py and rsync to ohm every $SECS
+
+SECS=120
+
+while /bin/true
+do
+  echo "`date +%F\ %T`  hpproc.run"
+
+  ./hpproc.py -d -k -a -s 15 -w 7 -y 15 \
+      --plot_mot_cur_dur \
+      --pltnambase rsn003-ws30-ws31-jhd \
+      --e1ws ws30 --e2ws ws31 \
+      hprtst.out
+
+# rsync -a notes-rsn003.txt pdf hprtst.out ohm:hpies/rsn/python/henry3
+  rsync -a pdf ohm:hpies/rsn/python/henry3
+
+  echo "`date +%F\ %T`  waiting $SECS s"
+  sleep $SECS
+done

@@ -1,0 +1,39 @@
+#!/bin/bash
+# hprpro-okmc.run
+
+NAMs="H1 H2 H3 H4 H5"
+
+# 2014-10-07 -- processed like RSN data
+pltdir=/data/okmc/plots
+matdir=/data/okmc/mat
+tskip=15
+twait=7
+
+# 2014-12-11 -- to match hefrun.m 2013-08-31
+pltdir=/data/okmc/plots2
+matdir=/data/okmc/mat2
+tskip=40
+twait=10
+
+# 2014-12-17 -- added motor current and duration
+pltdir=/data/okmc/plots3
+matdir=/data/okmc/mat3
+tskip=15
+twait=10
+
+for NAM in $NAMs
+do
+  ./hprpro.py \
+    --tskip $tskip \
+    --twait $twait \
+    --ylim_ocean 25 \
+    --matdir $matdir \
+    /data/okmc/hefcf2/"$NAM"_201?????
+done
+
+#   --plot_hef_demod \
+#   --plot_cal_demod \
+#   --plot_pies \
+#   --plot_compass \
+#   --plot_mot_cur_dur \
+#   --pltdir $pltdir \

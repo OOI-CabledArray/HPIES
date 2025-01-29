@@ -1,0 +1,21 @@
+#!/bin/sh
+# rotcoh-rsn.run
+
+DD="0903"
+DD="0829 0830 0831 0901 0902 0903"
+
+for D in $DD
+do
+
+  A='/data/rsn/mat/hprpro/HPIES-2014'
+
+  F1=$A$D'-1AB-hprpro.mat'
+  F2=$A$D'-2SB-hprpro.mat'
+  P=/data/rsn/plots/rotcoh
+  O=HPIES-2014"$D"
+
+  ./rotcoh.py --tfft 8 --ts --auto --rot --pltdir $P --opref "$O"-1AB-2SB $F1 $F2
+  ./rotcoh.py --tfft 8 --ts --auto --rot --pltdir $P --opref "$O"-1AB-1AB $F1 $F1
+  ./rotcoh.py --tfft 8 --ts --auto --rot --pltdir $P --opref "$O"-2SB-2SB $F2 $F2
+
+done

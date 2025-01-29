@@ -1,0 +1,21 @@
+./getmagobs.py --datebeg=2019-01-09 frn
+./getmagobs.py --datebeg=2019-02-26 frn
+./getmagobs.py --datebeg=2019-07-05 frn
+./getmagobs.py --datebeg=2019-08-11 frn
+./getmagobs.py --datebeg=2019-09-15 frn
+./getmagobs.py --datebeg=2019-11-05 frn
+./getmagobs.py --datebeg=2019-12-12 frn
+
+./getmagobs.py --datebeg=2019-01-09 hon
+./getmagobs.py --datebeg=2019-02-02 hon
+./getmagobs.py --datebeg=2019-02-09 hon
+./getmagobs.py --datebeg=2019-03-03 hon
+./getmagobs.py --datebeg=2019-05-08 hon
+./getmagobs.py --datebeg=2019-06-02 hon
+./getmagobs.py --datebeg=2019-07-07 hon
+./getmagobs.py --datebeg=2019-07-28 hon
+./getmagobs.py --datebeg=2019-09-04 hon
+./getmagobs.py --datebeg=2019-09-20 hon
+./getmagobs.py --datebeg=2019-09-28 hon
+./getmagobs.py --datebeg=2019-10-07 hon
+./getmagobs.py --datebeg=2019-12-15 hon

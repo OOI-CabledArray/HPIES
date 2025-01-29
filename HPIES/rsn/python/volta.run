@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ $# != 1 ]
+then
+        echo "usage: volta.run day"
+        exit 1
+fi
+
+H=$1
+
+rsync -a volta:~/hpies/rsn/python/hpr/150608a/ /data/hpies/tests/hprtst/hef009
+
+cd /data/hpies/tests/hprtst/hef009
+if [ ! -e hef009b_201506"$H"UTC.txt ]
+then
+  ln -s 150608a_201506"$H"UTC.txt hef009b_201506"$H"UTC.txt
+fi
+
+ls -l 150608a_201506"$H"UTC.txt hef009b_201506"$H"UTC.txt
+
+cd /home/dunlap/hpies/rsn/python
+./hprpro.py -dk -s 7 -w 7 -y 12 --onameroot hef009b-201506"$H" \
+  /data/hpies/tests/hprtst/hef009/hef009b_201506"$H"UTC.txt \
+  --pltdir /data/hpies/tests/plots --plot_mot_cur_dur
+

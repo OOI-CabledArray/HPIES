@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#for S in GUA HON FRN NEW SHU TUC SIT
+for S in BSL SJG
+do
+# cd ~/magobs/usgs/$S
+  s=`echo $S | tr 'A-Z' 'a-z'`
+  d=`date +%Y%m%d`
+  for d in 20140904 20140905
+  do
+    H="http://geomag.usgs.gov/data/magnetometer/"$S"/OneSecond/"$s$d"vsec.sec"
+    echo $H
+    wget -nv -P ~/magobs/usgs/$S $H
+  done
+done

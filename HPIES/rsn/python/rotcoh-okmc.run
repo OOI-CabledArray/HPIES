@@ -1,0 +1,45 @@
+#!/bin/bash
+# rotcoh-okmc.run
+
+YMDs="20120611 20120711 20120811 20120911 20121011 20121111 20121211 20130111 20130211 20130311 20130411 20130511" 
+
+NAM1s="H1 H2 H3 H4 H5"
+
+for YMD in $YMDs
+do
+
+  for NAM1 in $NAM1s
+  do
+    if [ $NAM1 == "H1" ]
+    then
+      NAM2s="H1 H2 H3 H4 H5"
+    fi
+    if [ $NAM1 == "H2" ]
+    then
+      NAM2s="H2 H3 H4 H5"
+    fi
+    if [ $NAM1 == "H3" ]
+    then
+      NAM2s="H3 H4 H5"
+    fi
+    if [ $NAM1 == "H4" ]
+    then
+      NAM2s="H4 H5"
+    fi
+    if [ $NAM1 == "H5" ]
+    then
+      NAM2s="H5"
+    fi
+
+    for NAM2 in $NAM2s
+    do
+      echo $YMD $NAM1 $NAM2
+
+      F1=/data/okmc/mat/hprpro/HPIES-"$YMD"-"$NAM1"-hprpro.mat
+      F2=/data/okmc/mat/hprpro/HPIES-"$YMD"-"$NAM2"-hprpro.mat
+      O=HPIES-"$YMD"-"$NAM1"-"$NAM2"
+      ./rotcoh.py --tfft 8 --ts --auto --rot --pltdir /data/okmc/plots/rotcoh --opref $O $F1 $F2
+    done
+  done
+done
+

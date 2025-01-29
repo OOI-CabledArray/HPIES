@@ -1,0 +1,8 @@
+NAM="2SB"
+for YMD in 20140918 20140919 20140924  20140926  20140927 20140930 20141001  20141002  20141003  20141004  20141005 
+do
+  F=/data/rsn/hpies/HPIESA101_10.33.5.5_2101_"$YMD"T????_UTC.dat
+  echo $F
+  ./hprpro.py -dk -s 15 -w 7 -y 15     --plot_compass     --plot_pies     --plot_mot_cur_dur     --e1ws $e1ws --e2ws $e2ws     --rsn     --matdir /data/rsn/mat     --pltdir /data/rsn/plots     --onameroot HPIES-$YMD-$NAM     $F 
+done
+

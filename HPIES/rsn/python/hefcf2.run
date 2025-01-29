@@ -1,0 +1,10 @@
+#!/bin/sh
+# hefcf2.run
+HH="H1 H2 H3 H4 H5"
+HH="H2 H3 H4 H5"
+HH="H1"
+for H in $HH
+do
+  echo $H
+  ./hefcf2.py -r -o /data/okmc/hefcf2/$H $H
+done

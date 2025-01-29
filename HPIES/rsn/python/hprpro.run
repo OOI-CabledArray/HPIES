@@ -1,0 +1,40 @@
+#!/bin/sh
+# hprpro.run
+
+if [ $# != 1 ]; then
+  echo "usage: hprpro.run <YMD list file>"
+  exit 1
+fi
+
+LIST=$1
+
+YLIM=15
+IDIR=/data/rsn/hpies
+
+for YMD in `cat $LIST`
+do
+for NAM in SB AB
+do
+  if [ $NAM == "SB" ]; then
+    F=$IDIR/HPIESA101_10.33.5.5_2101_"$YMD"T????_UTC.dat
+  fi
+  if [ $NAM == "AB" ]; then
+    F=$IDIR/HPIESA301_10.31.5.5_2101_"$YMD"T????_UTC.dat
+  fi
+
+  ./hprpro.py -s 15 -w 7 -y $YLIM \
+    --plot_e12_demod \
+    --plot_cal_demod \
+    --plot_hef_demod \
+    --plot_compass \
+    --plot_pies \
+    --plot_mot_cur_dur \
+    --plot_clk_diffs \
+    --rsn \
+    --matdir /data/rsn/mat \
+    --pltdir /data/rsn/plots \
+    --onameroot HPIES-$YMD-$NAM \
+    $F
+
+done
+done

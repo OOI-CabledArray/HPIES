@@ -1,0 +1,3 @@
+./hprsplit.py -b /data/rsn/hpr -n hpr001 `cat names001`
+./hprsplit.py -b /data/rsn/hpr -n hpr002 `cat names002`
+./hprsplit.py -b /data/rsn/hpr -n hpr003 `cat names003`

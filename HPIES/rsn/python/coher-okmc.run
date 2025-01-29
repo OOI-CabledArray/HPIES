@@ -1,0 +1,16 @@
+#!/bin/bash
+# coher-okmc.run
+
+# 201206 201207 201208 201209 201210 201211 201212
+for MD in 201301 201302 201303 201304 201305
+do
+for T in 0 1 2
+do
+for H in H1 H2 H3 H4 H5
+do
+  FILES=/data/okmc/mat/hprpro/HPIES-"$MD""$T"?-"$H"-hprpro.mat
+  ./coher.py --tfft 8 --okmc --coh --ts --cat $FILES
+done
+done
+done
+

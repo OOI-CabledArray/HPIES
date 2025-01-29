@@ -1,0 +1,10 @@
+#!/bin/sh
+
+for runid in 2019 2020
+do
+for site in AB SB
+do
+  echo $runid $site
+  ./hpmdplt.py --plt_motor --plt_ef_pr_tt --plt_clk_diffs --runid $runid --site $site --png
+done
+done

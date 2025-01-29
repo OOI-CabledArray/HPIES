@@ -1,0 +1,60 @@
+#!/bin/bash
+# wget.run
+
+echo "begin: " `date -u '+%Y-%m-%d %H:%M:%S UTC'`
+
+H=128.95.195.8
+
+wget --no-verbose -N --limit-rate=1500k -P /data/rsn/hpies ftp://$H/lj01a/HPIES\*
+wget --no-verbose -N --limit-rate=1500k -P /data/rsn/hpies ftp://$H/lj03a/HPIES\*
+wget --no-verbose -N --limit-rate=1500k -P /data/rsn/ctd   ftp://$H/lj01a/CTD\*
+wget --no-verbose -N --limit-rate=1500k -P /data/rsn/ctd   ftp://$H/lj03a/CTD\*
+wget --no-verbose -N --limit-rate=1500k -P /data/rsn/vel3d ftp://$H/mj03a/VEL3D\*
+
+# process HPIES
+cd /home/dunlap/hpies/rsn/python
+YMDLOC=`date +%Y%m%d`
+YMDUTC=`date -u +%Y%m%d`
+
+if [ $YMDLOC == $YMDUTC ]
+then
+  YMDLIST=$YMDLOC
+else
+  YMDLIST="$YMDLOC $YMDUTC"
+fi
+
+IDIR=/data/rsn/hpies
+
+for YMD in $YMDLIST
+do
+for NAM in AB SB
+do
+  if [ $NAM == "AB" ]; then
+    F=$IDIR/HPIESA301_10.31.5.5_2101_"$YMD"T????_UTC.dat
+#   e1ws=ws32
+#   e2ws=ws34
+    ylim=15
+  fi
+  if [ $NAM == "SB" ]; then
+    F=$IDIR/HPIESA101_10.33.5.5_2101_"$YMD"T????_UTC.dat
+#   e1ws=ws31
+#   e2ws=ws33
+    ylim=15
+  fi
+  echo "F=$F"
+  ./hprpro.py -dk -s 15 -w 7 -y $ylim \
+    --plot_compass \
+    --plot_pies \
+    --plot_mot_cur_dur \
+    --rsn \
+    --matdir /data/rsn/mat \
+    --pltdir /data/rsn/plots \
+    --onameroot HPIES-$YMD-$NAM \
+    $F
+done
+done
+
+#   --e1ws $e1ws --e2ws $e2ws \
+
+echo "end: " `date -u '+%Y-%m-%d %H:%M:%S UTC'`
+echo "---------------------------------------------------------------"

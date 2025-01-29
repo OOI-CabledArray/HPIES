@@ -1,0 +1,40 @@
+./getmagobs.py --datebeg=20160429 new
+./getmagobs.py --datebeg=20161112 new
+./getmagobs.py --datebeg=20161115 new
+./getmagobs.py --datebeg=20161127 new
+./getmagobs.py --datebeg=20161128 new
+./getmagobs.py --datebeg=20161223 new
+
+./getmagobs.py --datebeg=20160209 tuc
+./getmagobs.py --datebeg=20160304 tuc
+./getmagobs.py --datebeg=20160810 tuc
+./getmagobs.py --datebeg=20160826 tuc
+./getmagobs.py --datebeg=20161003 tuc
+./getmagobs.py --datebeg=20161015 tuc
+./getmagobs.py --datebeg=20161115 tuc
+./getmagobs.py --datebeg=20161117 tuc
+
+./getmagobs.py --datebeg=20160125 frn
+./getmagobs.py --datebeg=20160602 frn
+./getmagobs.py --datebeg=20160616 frn
+./getmagobs.py --datebeg=20160618 frn
+./getmagobs.py --datebeg=20160705 frn
+./getmagobs.py --datebeg=20160731 frn
+./getmagobs.py --datebeg=20160830 frn
+./getmagobs.py --datebeg=20160906 frn
+./getmagobs.py --datebeg=20161006 frn
+./getmagobs.py --datebeg=20161212 frn
+
+./getmagobs.py --datebeg=20160524 hon
+./getmagobs.py --datebeg=20160529 hon
+./getmagobs.py --datebeg=20160704 hon
+./getmagobs.py --datebeg=20160707 hon
+./getmagobs.py --datebeg=20160709 hon
+./getmagobs.py --datebeg=20160718 hon
+./getmagobs.py --datebeg=20160730 hon
+./getmagobs.py --datebeg=20160731 hon
+./getmagobs.py --datebeg=20160809 hon
+./getmagobs.py --datebeg=20160812 hon
+./getmagobs.py --datebeg=20160822 hon
+./getmagobs.py --datebeg=20160916 hon
+

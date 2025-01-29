@@ -1,0 +1,94 @@
+#!/bin/bash
+# hpies.run
+
+echo " "
+echo `date -u '+%Y-%m-%d %H:%M:%S UTC'` hpies.run begining
+
+HOST=128.95.195.8 # ftp.ooirsn.uw.edu
+
+YRU=`date -u '+%Y'`
+MOU=`date -u '+%m'`
+YRL=`date '+%Y'`
+MOL=`date '+%m'`
+
+echo YRU=$YRU
+
+# mount ftp.ooirsn.uw.edu
+sshfs -o IdentityFile=~dunlap/.ssh/hpies_id_rsa hpies@140.142.14.84:/ /mnt/ooirsn
+
+for YM in $YRU/$MOU $YRL/$MOL
+do
+  rsync -a --bwlimit=1500k /mnt/ooirsn/data/lj01a/HPIESA101/$YM/ /data/rsn/hpies 
+  rsync -a --bwlimit=1500k /mnt/ooirsn/data/lj03a/HPIESA301/$YM/ /data/rsn/hpies 
+  rsync -a --bwlimit=1500k /mnt/ooirsn/data/lj01a/CTDPFB101/$YM/ /data/rsn/ctd 
+  rsync -a --bwlimit=1500k /mnt/ooirsn/data/lj03a/CTDPFB301/$YM/ /data/rsn/ctd 
+done
+
+# umount ooirsn
+fusermount -u /mnt/ooirsn
+
+# process HPIES
+cd /home/dunlap/hpies/rsn/python
+
+YMDLOC=`date +%Y%m%d`
+YMDUTC=`date -u +%Y%m%d`
+
+if [ $YMDLOC == $YMDUTC ]
+then
+  YMDLIST=$YMDLOC
+else
+  YMDLIST="$YMDLOC $YMDUTC"
+fi
+
+IDIR=/data/rsn/hpies
+
+for YMD in $YMDLIST
+do
+for NAM in AB SB
+do
+  if [ $NAM == "AB" ]; then
+    F=$IDIR/HPIESA301_10.31.5.5_2101_"$YMD"T????_UTC.dat
+#   e1ws=ws32
+#   e2ws=ws34
+    ylim=15
+  fi
+  if [ $NAM == "SB" ]; then
+    F=$IDIR/HPIESA101_10.33.5.5_2101_"$YMD"T????_UTC.dat
+#   e1ws=ws31
+#   e2ws=ws33
+    ylim=15
+  fi
+#   --e1ws $e1ws --e2ws $e2ws \
+#
+  echo "F=$F"
+  ./hprpro.py -s 15 -w 7 -y $ylim \
+    --plot_e12_demod \
+    --plot_cal_demod \
+    --plot_hef_demod \
+    --plot_compass \
+    --plot_pies \
+    --plot_mot_cur_dur \
+    --plot_clk_diffs \
+    --rsn \
+    --matdir /data/rsn/mat \
+    --pltdir /data/rsn/plots \
+    --onameroot HPIES-$YMD-$NAM \
+    $F
+done
+done
+
+for NAM in AB SB
+do
+  ./hpmdplt.py --plt_motor --plt_clk_diffs --plt_ef_pr_tt --png --runid 2022 -s $NAM
+done
+
+echo `date -u '+%Y-%m-%d %H:%M:%S UTC'` "rsyncing to kirin starting"
+
+## mount kirin
+#sshfs -o IdentityFile=~dunlap/.ssh/o2k_id_rsa dunlap@kirin:/var/www/html/rsn ~/mnt/kirin-rsn
+#rsync -rtpL -e "ssh -oBatchmode=yes" /data/rsn/mat /data/rsn/plots ~/mnt/kirin-rsn
+#fusermount -u ~/mnt/kirin-rsn
+
+rsync -rtpL -e "ssh -i /home/dunlap/.ssh/o2k_id_rsa -o Batchmode=yes" /data/rsn/mat /data/rsn/plots dunlap@kirin:/var/www/html/rsn
+
+echo  `date -u '+%Y-%m-%d %H:%M:%S UTC'` hpies.run finished
